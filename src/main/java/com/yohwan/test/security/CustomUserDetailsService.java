@@ -1,6 +1,7 @@
 package com.yohwan.test.security;
 
 import com.yohwan.test.security.auth.PrincipalDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
@@ -16,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	private final MembersRepository membersRepository;
-	private static final Logger log = LoggerFactory.getLogger(CustomUserDetailsService.class);
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Members members = membersRepository.findByUsername(username);

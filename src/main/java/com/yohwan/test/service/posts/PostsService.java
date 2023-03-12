@@ -3,6 +3,7 @@ package com.yohwan.test.service.posts;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import com.yohwan.test.web.dto.posts.PostsUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
 
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class PostsService {

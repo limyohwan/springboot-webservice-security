@@ -26,7 +26,7 @@ public class WebSecurityConfig {
 				.antMatchers("/user/**").authenticated()
 				.antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 				.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-				.antMatchers("/h2-consloe/**").permitAll()
+				.antMatchers("/h2-console/**").permitAll()
 				.anyRequest().permitAll()
 				.and()
 				.formLogin()

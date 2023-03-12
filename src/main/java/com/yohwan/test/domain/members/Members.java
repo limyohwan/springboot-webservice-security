@@ -8,12 +8,13 @@ import javax.persistence.Id;
 
 import com.yohwan.test.domain.BaseTimeEntity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Members extends BaseTimeEntity {
 	
@@ -41,16 +42,5 @@ public class Members extends BaseTimeEntity {
 	
 	public void changeEncPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "Members{" +
-				"id=" + id +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", email='" + email + '\'' +
-				", role='" + role + '\'' +
-				'}';
 	}
 }

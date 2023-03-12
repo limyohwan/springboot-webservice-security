@@ -78,20 +78,14 @@ public class SignController {
 
 	@GetMapping("/test/login")
 	public @ResponseBody String testLogin(Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails){
-		System.out.println("/test/login");
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-		System.out.println("PrincipalDetails : + " + principalDetails.getUsername());
 
-		System.out.println("userDetails : " + userDetails.getUsername());
 		return "세션정보확인하기";
 	}
 
 	@GetMapping("/test/oauth/login")
 	public @ResponseBody String testOAuthLogin(Authentication authentication, @AuthenticationPrincipal OAuth2User oauth){
-		System.out.println("/test/login");
 		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-		System.out.println("oauth2 : " + oAuth2User.getAttributes());
-		System.out.println("oauth2123123123 : " + oauth.getAttributes());
 
 		return "oauth세션정보확인하기";
 	}

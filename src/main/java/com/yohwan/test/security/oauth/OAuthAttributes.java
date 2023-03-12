@@ -3,10 +3,12 @@ package com.yohwan.test.security.oauth;
 import com.yohwan.test.domain.members.Members;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
 @Getter
+@Slf4j
 public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
@@ -31,9 +33,9 @@ public class OAuthAttributes {
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
         if("google".equals(registrationId)){
-            System.out.println("구글입니다.");
+            log.info("구글입니다.");
         }else if("naver".equals(registrationId)){
-            System.out.println("네이버입니다.");
+            log.info("네이버입니다.");
         }
         return ofGoogle(userNameAttributeName, attributes, registrationId);
     }
