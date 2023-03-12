@@ -23,7 +23,7 @@ import com.yohwan.test.web.controller.HelloController;
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = HelloController.class)
 @MockBeans({
-		@MockBean(JpaMetamodelMappingContext.class),
+		@MockBean(JpaMetamodelMappingContext.class), // @EnableJpaAuditing 이부분을 따로 config로 분리함으로도 처리 가능
 		@MockBean(CustomOauth2UserService.class)
 })
 public class HelloControllerTest {
