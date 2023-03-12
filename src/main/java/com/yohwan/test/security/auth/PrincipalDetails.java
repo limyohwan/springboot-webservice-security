@@ -1,23 +1,24 @@
 package com.yohwan.test.security.auth;
 
-import com.yohwan.test.domain.members.Members;
+import com.yohwan.test.domain.members.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private Members member;
+    private Member member;
     private Map<String, Object> attributes;
 
-    public PrincipalDetails(Members member){
+    public PrincipalDetails(Member member){
         this.member = member;
     }
-    public PrincipalDetails(Members member, Map<String, Object> attributes){
+    public PrincipalDetails(Member member, Map<String, Object> attributes){
         this.member = member;
         this.attributes = attributes;
     }
@@ -29,7 +30,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return member.getRole();
+                return member.getRole().name();
             }
         });
 

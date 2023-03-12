@@ -1,5 +1,6 @@
 package com.yohwan.test.web.controller;
 
+import com.yohwan.test.domain.members.Role;
 import com.yohwan.test.security.auth.PrincipalDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.yohwan.test.domain.members.Members;
+import com.yohwan.test.domain.members.Member;
 import com.yohwan.test.service.members.MembersService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,11 +36,11 @@ public class SignController {
 	
 	@PostMapping("/signup")
 	public String signup(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
-		Members member = Members.builder()
+		Member member = Member.builder()
 								.username(username)
 								.password(password)
 								.email(email)
-								.role("ROLE_USER")
+								.role(Role.ROLE_USER)
 								.build();
 		membersService.save(member);
 		return "redirect:/login";

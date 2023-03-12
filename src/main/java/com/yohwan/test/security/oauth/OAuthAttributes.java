@@ -1,6 +1,7 @@
 package com.yohwan.test.security.oauth;
 
-import com.yohwan.test.domain.members.Members;
+import com.yohwan.test.domain.members.Member;
+import com.yohwan.test.domain.members.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -53,12 +54,12 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public Members toEntity(){
-        return Members.builder()
+    public Member toEntity(){
+        return Member.builder()
                 .username(username)
                 .password(username)
                 .email(email)
-                .role("ROLE_USER")
+                .role(Role.ROLE_USER)
                 .provider(provider)
                 .providerId(providerId)
                 .build();

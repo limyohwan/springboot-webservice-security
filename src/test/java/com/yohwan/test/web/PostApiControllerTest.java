@@ -17,14 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.yohwan.test.domain.posts.Posts;
-import com.yohwan.test.domain.posts.PostsRepository;
+import com.yohwan.test.domain.posts.Post;
+import com.yohwan.test.domain.posts.PostRepository;
 import com.yohwan.test.web.dto.posts.PostsSaveRequestDto;
 import com.yohwan.test.web.dto.posts.PostsUpdateRequestDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PostsApiControllerTest {
+public class PostApiControllerTest {
 	
 	@LocalServerPort
 	private int port;
@@ -33,11 +33,11 @@ public class PostsApiControllerTest {
 	private TestRestTemplate restTemplate;
 	
 	@Autowired
-	private PostsRepository postsRepository;
+	private PostRepository postRepository;
 	
 	@After
 	public void tearDown() throws Exception{
-		postsRepository.deleteAll();
+		postRepository.deleteAll();
 	}
 	
 	@Test
@@ -57,20 +57,20 @@ public class PostsApiControllerTest {
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(responseEntity.getBody()).isGreaterThan(0L);
 		
-		List<Posts> all = postsRepository.findAll();
+		List<Post> all = postRepository.findAll();
 		assertThat(all.get(0).getTitle()).isEqualTo(title);
 		assertThat(all.get(0).getContent()).isEqualTo(content);
 	}
 	
 	@Test
 	public void updatePosts() throws Exception{
-		Posts savedPosts = postsRepository.save(Posts.builder()
+		Post savedPost = postRepository.save(Post.builder()
 				.title("title")
 				.content("content")
 				.author("author")
 				.build());
 		
-		Long updateId = savedPosts.getId();
+		Long updateId = savedPost.getId();
 		String expectedTitle = "title2";
 		String expectedContent = "content2";
 		
@@ -88,7 +88,7 @@ public class PostsApiControllerTest {
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(responseEntity.getBody()).isGreaterThan(0L);
 		
-		List<Posts> all = postsRepository.findAll();
+		List<Post> all = postRepository.findAll();
 		assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
 		assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
 		

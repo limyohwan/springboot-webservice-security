@@ -1,6 +1,6 @@
 package com.yohwan.test.web.dto.posts;
 
-import com.yohwan.test.domain.posts.Posts;
+import com.yohwan.test.domain.posts.Post;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +20,8 @@ public class PostsSaveRequestDto {
 		this.author = author;
 	}
 	
-	public Posts toEntity() {
-		return Posts.builder()
+	public Post toEntity() {
+		return Post.builder()
 				.title(title)
 				.content(content)
 				.author(author)

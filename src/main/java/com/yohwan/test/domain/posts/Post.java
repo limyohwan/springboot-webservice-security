@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Posts extends BaseTimeEntity{
+public class Post extends BaseTimeEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Posts extends BaseTimeEntity{
 	private String author;
 	
 	@Builder
-	public Posts(String title, String content, String author) {
+	public Post(String title, String content, String author) {
 		this.title = title;
 		this.content = content;
 		this.author = author;

@@ -1,6 +1,6 @@
 package com.yohwan.test.web.dto.posts;
 
-import com.yohwan.test.domain.posts.Posts;
+import com.yohwan.test.domain.posts.Post;
 
 import lombok.Getter;
 
@@ -11,7 +11,7 @@ public class PostsResponseDto {
 	private String content;
 	private String author;
 	
-	public PostsResponseDto(Posts entity) {
+	public PostsResponseDto(Post entity) {
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.content = entity.getContent();

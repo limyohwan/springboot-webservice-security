@@ -1,8 +1,9 @@
 package com.yohwan.test.security;
 
-import com.yohwan.test.domain.members.Members;
-import com.yohwan.test.domain.members.MembersRepository;
+import com.yohwan.test.domain.members.Member;
+import com.yohwan.test.domain.members.MemberRepository;
 import com.yohwan.test.security.auth.PrincipalDetails;
+import com.yohwan.test.security.auth.SessionUser;
 import com.yohwan.test.security.oauth.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,13 +14,16 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
 public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
-    private final MembersRepository membersRepository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final HttpSession httpSession;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         log.info("userRequest : {}", userRequest);
@@ -30,14 +34,16 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         ,userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()
         , oAuth2User.getAttributes());
 
-        Members member = membersRepository.findByUsername(attributes.getUsername());
+        Member member = memberRepository.findByUsername(attributes.getUsername());
 
         if(member == null){
             member = attributes.toEntity();
             String encPassword = passwordEncoder.encode(member.getPassword());
             member.changeEncPassword(encPassword);
-            membersRepository.save(member);
+            memberRepository.save(member);
         }
+
+//        httpSession.setAttribute("user", new SessionUser(member));
 
         return new PrincipalDetails(member, oAuth2User.getAttributes());
     }

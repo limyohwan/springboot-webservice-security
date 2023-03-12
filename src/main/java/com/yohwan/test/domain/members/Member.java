@@ -1,10 +1,6 @@
 package com.yohwan.test.domain.members;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.yohwan.test.domain.BaseTimeEntity;
 
@@ -16,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Members extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +22,14 @@ public class Members extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String password;
 	private String email;
-	private String role;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	private String provider;
 	private String providerId;
 
 	@Builder
-	public Members(String username, String password, String email, String role, String provider, String providerId) {
+	public Member(String username, String password, String email, Role role, String provider, String providerId) {
 		this.username = username;
 		this.password = password;
 		this.email = email;

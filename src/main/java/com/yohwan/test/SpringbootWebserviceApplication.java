@@ -11,11 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class SpringbootWebserviceApplication {
 
-	@Bean
-	public PasswordEncoder passwordEncoder() throws Exception{
-		return new BCryptPasswordEncoder();
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootWebserviceApplication.class, args);
 	}

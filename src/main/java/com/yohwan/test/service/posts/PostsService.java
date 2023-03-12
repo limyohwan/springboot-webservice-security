@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yohwan.test.domain.posts.Posts;
-import com.yohwan.test.domain.posts.PostsRepository;
+import com.yohwan.test.domain.posts.Post;
+import com.yohwan.test.domain.posts.PostRepository;
 import com.yohwan.test.web.dto.posts.PostsListResponseDto;
 import com.yohwan.test.web.dto.posts.PostsResponseDto;
 import com.yohwan.test.web.dto.posts.PostsSaveRequestDto;
@@ -21,25 +21,25 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PostsService {
 	
-	private final PostsRepository postsRepository;
+	private final PostRepository postRepository;
 	
 	@Transactional
 	public Long save(PostsSaveRequestDto requestDto) {
-		return postsRepository.save(requestDto.toEntity()).getId();
+		return postRepository.save(requestDto.toEntity()).getId();
 	}
 	
 	@Transactional
 	public Long update(Long id, PostsUpdateRequestDto requestDto) {
-		Posts posts = postsRepository.findById(id)
+		Post post = postRepository.findById(id)
 				.orElseThrow(()-> new IllegalArgumentException("해당게시글이 없습니다. id = " + id));
 		
-		posts.update(requestDto.getTitle(), requestDto.getContent());
+		post.update(requestDto.getTitle(), requestDto.getContent());
 		
 		return id;
 	}
 	
 	public PostsResponseDto findById(Long id) {
-		Posts entity = postsRepository.findById(id)
+		Post entity = postRepository.findById(id)
 				.orElseThrow(()-> new IllegalArgumentException("해당게시글이 없습니다. id = " + id));
 		
 		return new PostsResponseDto(entity);
@@ -47,15 +47,15 @@ public class PostsService {
 	
 	@Transactional(readOnly=true)
 	public List<PostsListResponseDto> findAllDesc(){
-		return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+		return postRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
 	}
 	
 	@Transactional
 	public void delete(Long id) {
-		Posts posts = postsRepository.findById(id)
+		Post post = postRepository.findById(id)
 				.orElseThrow(()-> new IllegalArgumentException("해당게시글이 없습니다. id = " + id));
 		
-		postsRepository.delete(posts);
+		postRepository.delete(post);
 	}
 
 }

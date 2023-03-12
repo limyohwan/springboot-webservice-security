@@ -2,16 +2,13 @@ package com.yohwan.test.security;
 
 import com.yohwan.test.security.auth.PrincipalDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.yohwan.test.domain.members.Members;
-import com.yohwan.test.domain.members.MembersRepository;
+import com.yohwan.test.domain.members.Member;
+import com.yohwan.test.domain.members.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,12 +17,12 @@ import lombok.RequiredArgsConstructor;
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 	
-	private final MembersRepository membersRepository;
+	private final MemberRepository memberRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Members members = membersRepository.findByUsername(username);
+		Member member = memberRepository.findByUsername(username);
 
-		return new PrincipalDetails(members);
+		return new PrincipalDetails(member);
 	}
 }
