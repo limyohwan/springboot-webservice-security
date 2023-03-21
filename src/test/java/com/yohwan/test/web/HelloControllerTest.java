@@ -31,14 +31,14 @@ public class HelloControllerTest {
 	private MockMvc mvc;
 	
 	@Test
-	@WithMockUser(username = "user", roles = {"USER"})
+	@WithMockUser(username = "user", roles ="USER")
 	public void returnHello() throws Exception{
 		String hello = "hello";
 		mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string(hello));
 	}
 	
 	@Test
-	@WithMockUser(username = "user", roles = {"USER"})
+	@WithMockUser(username = "user", roles = "USER")
 	public void returnHelloDto() throws Exception{
 		String name = "hello";
 		int amount = 1000;
